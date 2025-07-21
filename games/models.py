@@ -1,4 +1,4 @@
-from django.core.validators import MinLengthValidator
+from django.core.validators import MinLengthValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -42,3 +42,26 @@ class Game(models.Model):
             MinLengthValidator(2),
         ]
     )
+
+class Rating(models.Model):
+    value = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(5),
+            MinValueValidator(1),
+        ]
+    )
+
+    game = models.ForeignKey(
+        to=Game,
+        on_delete=models.CASCADE,
+        related_name='ratings',
+    )
+
+    user = models.ForeignKey(
+        to='accounts.AppUser',
+        on_delete=models.CASCADE,
+        related_name='ratings',
+    )
+
+    class Meta:
+        unique_together = ('game', 'user')
