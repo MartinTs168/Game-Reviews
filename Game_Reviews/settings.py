@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 PROJECT_APPS = [
     'accounts.apps.AccountsConfig',
     'games.apps.GamesConfig',
+    'tags.apps.TagsConfig',
 ]
 
 # Application definition
