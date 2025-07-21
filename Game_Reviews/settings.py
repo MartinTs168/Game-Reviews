@@ -40,6 +40,7 @@ PROJECT_APPS = [
     'accounts.apps.AccountsConfig',
     'games.apps.GamesConfig',
     'tags.apps.TagsConfig',
+    'reviews.apps.ReviewsConfig',
 ]
 
 # Application definition
