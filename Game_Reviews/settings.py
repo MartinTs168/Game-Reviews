@@ -41,6 +41,7 @@ PROJECT_APPS = [
     'games.apps.GamesConfig',
     'tags.apps.TagsConfig',
     'reviews.apps.ReviewsConfig',
+    'common.apps.CommonConfig',
 ]
 
 # Application definition
