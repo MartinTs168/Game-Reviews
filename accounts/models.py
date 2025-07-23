@@ -5,6 +5,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 
 from accounts.managers import AppUserManager
+from common.validators import FileSizeValidator
 
 
 class AppUser(AbstractBaseUser, PermissionsMixin):
@@ -35,3 +36,30 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
+
+
+class Profile(models.Model):
+    MAX_PICTURE_SIZE_MB = 5
+
+    user = models.OneToOneField(
+        to=AppUser,
+        on_delete=models.CASCADE,
+        related_name='profile',
+        primary_key=True,
+    )
+
+    profile_picture = models.ImageField(
+        upload_to='profile_pictures/',
+        null=True,
+        blank=True,
+        validators=[
+            FileSizeValidator(MAX_PICTURE_SIZE_MB)
+        ],
+    )
+
+    bio = models.CharField(
+        max_length=300,
+        null=True,
+        blank=True,
+        help_text='Brief bio about yourself',
+    )
