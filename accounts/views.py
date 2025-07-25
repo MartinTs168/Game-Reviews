@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from accounts.forms import AppUserCreationForm
+from accounts.forms import AppUserCreationForm, ProfileEditForm
 from accounts.models import Profile
 
 # Create your views here.
@@ -24,7 +25,18 @@ class UserRegisterView(CreateView):
 
         return response
 
+
 class ProfileDetailsView(DetailView):
     model = Profile
     context_object_name = 'profile'
     template_name = 'accounts/profile-details.html'
+    queryset = Profile.objects.prefetch_related('user')
+
+
+class ProfileEditView(UpdateView):
+    model = Profile
+    form_class = ProfileEditForm
+    template_name = 'accounts/profile-edit.html'
+
+    def get_success_url(self):
+        return reverse_lazy('profile-details', kwargs={'pk': self.object.pk})

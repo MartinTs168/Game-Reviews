@@ -3,8 +3,11 @@
     <h3>Hello {{ profile.user.username }}</h3>
     <p>Email: {{ profile.user.email }}</p>
     <p>Bio:
-        {% if profile.bio%}
+        {% if profile.bio %}
             {{ profile.bio }}
         {% endif %}
     </p>
+    <a href="{% url 'profile-edit' user.pk %}" class="btn btn-secondary">
+        Edit profile
+    </a>
 {% endblock %}

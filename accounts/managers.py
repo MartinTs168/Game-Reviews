@@ -51,4 +51,3 @@ class AppUserManager(BaseUserManager):
         return self._create_user(username, email, password, **extra_fields)
 
     create_superuser.alters_data = True
-
