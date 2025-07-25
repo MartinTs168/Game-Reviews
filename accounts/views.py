@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, login
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
 from accounts.forms import AppUserCreationForm
+from accounts.models import Profile
 
 # Create your views here.
 UserModel = get_user_model()
@@ -22,3 +23,8 @@ class UserRegisterView(CreateView):
             login(self.request, self.object)
 
         return response
+
+class ProfileDetailsView(DetailView):
+    model = Profile
+    context_object_name = 'profile'
+    template_name = 'accounts/profile-details.html'
