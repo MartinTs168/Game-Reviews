@@ -1,8 +1,12 @@
 from django.core.validators import MinLengthValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 
+from common.validators import FileSizeValidator
+
 
 class Game(models.Model):
+    MAX_IMAGE_SIZE_MB = 5
+
     name = models.CharField(
         max_length=250,
         unique=True,
@@ -42,6 +46,16 @@ class Game(models.Model):
             MinLengthValidator(2),
         ]
     )
+
+    image = models.ImageField(
+        upload_to='games_images/',
+        null=True,
+        blank=True,
+        validators=[
+            FileSizeValidator(MAX_IMAGE_SIZE_MB)
+        ],
+    )
+
 
 class Rating(models.Model):
     value = models.PositiveSmallIntegerField(
