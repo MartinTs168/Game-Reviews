@@ -11,3 +11,7 @@ class GameBaseForm(ModelForm):
 
 class GameCreateForm(GameBaseForm):
     ...
+
+
+class GameEditForm(GameBaseForm):
+    ...
