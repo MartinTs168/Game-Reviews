@@ -289,3 +289,6 @@ fabric.properties
 
 #node root folder
 node_modules/
+
+#media images folder
+media/
