@@ -56,6 +56,9 @@ class Game(models.Model):
         ],
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Rating(models.Model):
     value = models.PositiveSmallIntegerField(
