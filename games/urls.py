@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from games.views import GameAllView, GameCreateView, GameEditView, GameDetailsView
+from games.views import GameAllView, GameCreateView, GameEditView, GameDetailsView, GameDeleteView
 
 urlpatterns = [
     path('all/', GameAllView.as_view(), name='all-games'),
@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:pk>/', include([
         path('edit/', GameEditView.as_view(), name='edit-game'),
         path('details/', GameDetailsView.as_view(), name='game-details'),
+        path('delete/', GameDeleteView.as_view(), name='delete-game'),
     ]))
 ]
