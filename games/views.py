@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
 
 from games.forms import GameCreateForm, GameEditForm
 from games.models import Game
@@ -26,3 +26,8 @@ class GameEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'games/edit-game.html'
     success_url = reverse_lazy('all-games')
     permission_required = 'games.change_game'
+
+
+class GameDetailsView(DetailView):
+    model = Game
+    template_name = 'games/details-game.html'
