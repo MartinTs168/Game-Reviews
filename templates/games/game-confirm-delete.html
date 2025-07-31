@@ -4,5 +4,6 @@
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'game-details' game.pk %}" class="btn btn-secondary">Back</a>
     </form>
 {% endblock %}

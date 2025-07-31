@@ -17,6 +17,7 @@
             <p>{{ game.release_date }}</p>
             {% if user|has_group:"Employee" %}
                 <a href="{% url 'edit-game' game.pk %}" class="btn btn-secondary">Edit</a>
+                <a href="{% url 'delete-game' game.pk %}" class="btn btn-danger">Delete</a>
             {% endif %}
         </div>
     </div>
