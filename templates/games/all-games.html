@@ -3,15 +3,18 @@
     <div class="row p-3 gap-3">
         {% for game in games %}
             <div class="card col-lg-2">
-                <div class="card-img-top">
-                    {% if game.image %}
-                        <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ game.name }}</h5>
-                </div>
+                <a href="{% url 'game-details' game.pk %}">
+                    <div class="card-img-top">
+                        {% if game.image %}
+                            <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ game.name }}</h5>
+                    </div>
+                </a>
             </div>
+            
         {% endfor %}
     </div>
 {% endblock %}
