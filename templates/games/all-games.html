@@ -4,7 +4,9 @@
         {% for game in games %}
             <div class="card col-lg-2">
                 <div class="card-img-top">
-                    <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                    {% if game.image %}
+                        <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                    {% endif %}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ game.name }}</h5>

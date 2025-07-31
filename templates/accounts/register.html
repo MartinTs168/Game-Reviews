@@ -4,6 +4,7 @@
         <form class="form-multiline" method="post">
             {% csrf_token %}
             {{ form.as_div }}
+            {{ form.errors }}
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
