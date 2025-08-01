@@ -4,12 +4,14 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 
 from games.forms import GameCreateForm, GameEditForm
 from games.models import Game
+from tags.models import Tag
 
 
 class GameAllView(ListView):
     model = Game
     template_name = 'games/all-games.html'
     context_object_name = 'games'
+    ordering = ['name']
 
 
 class GameCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -30,6 +32,20 @@ class GameEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('game-details', kwargs={'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['available_tags'] = Tag.objects.all()
+        context['selected_tags'] = self.object.tags.all()
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        selected_tag_ids = self.request.POST.getlist('tags')
+        self.object.tags.clear()
+        if selected_tag_ids:
+            self.object.tags.add(*selected_tag_ids)
+        return response
 
 
 class GameDetailsView(DetailView):

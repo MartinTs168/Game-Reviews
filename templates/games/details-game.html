@@ -12,6 +12,9 @@
 
         <div class="flex-item">
             <h3>{{ game.name }}</h3>
+            {% for tag in game.tags.all %}
+                <p>{{ tag.name }}</p>
+            {% endfor %}
             <p>{{ game.description }}</p>
             <p>{{ game.available_platforms }}</p>
             <p>{{ game.release_date }}</p>
