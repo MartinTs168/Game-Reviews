@@ -1,7 +1,7 @@
 {% extends 'common/base.html' %}
 {% load user_in_group_filter %}
 {% block content %}
-    <div class="flex-container flex-wrap d-flex justify-content-between">
+    <div class="flex-container flex-wrap d-flex justify-content-around">
         <div class="flex-item">
             {% if game.image %}
                 <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
@@ -10,17 +10,23 @@
             {% endif %}
         </div>
 
-        <div class="flex-item">
+        <div class="flex-item flex-container d-flex flex-wrap" style="flex: 0 0 50%;">
             <h3>{{ game.name }}</h3>
-            {% for tag in game.tags.all %}
-                <p>{{ tag.name }}</p>
-            {% endfor %}
-            <p>{{ game.description }}</p>
-            <p>{{ game.available_platforms }}</p>
-            <p>{{ game.release_date }}</p>
+            <div class="w-100">
+                {% for tag in game.tags.all %}
+                    <p>{{ tag.name }}</p>
+                {% endfor %}
+            </div>
+            <div class="w-100"><p>{{ game.description }}</p></div>
+            <div class="w-100"><p>{{ game.developer }}</p></div>
+            <div class="w-100"><p>{{ game.publisher }}</p></div>
+            <div class="w-100"><p>{{ game.available_platforms }}</p></div>
+            <div class="w-100"><p>{{ game.release_date }}</p></div>
             {% if user|has_group:"Employee" %}
-                <a href="{% url 'edit-game' game.pk %}" class="btn btn-secondary">Edit</a>
-                <a href="{% url 'delete-game' game.pk %}" class="btn btn-danger">Delete</a>
+                <div class="w-100">
+                    <a href="{% url 'edit-game' game.pk %}" class="btn btn-secondary">Edit</a>
+                    <a href="{% url 'delete-game' game.pk %}" class="btn btn-danger">Delete</a>
+                </div>
             {% endif %}
         </div>
     </div>
