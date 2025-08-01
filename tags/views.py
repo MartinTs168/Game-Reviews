@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from tags.forms import TagCreateForm, TagEditForm
 from tags.models import Tag
@@ -27,3 +27,10 @@ class TagEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     template_name = 'tags/edit-tag.html'
     success_url = reverse_lazy('all-tags')
     permission_required = 'tags.change_tag'
+
+
+class TagDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Tag
+    success_url = reverse_lazy('all-tags')
+    permission_required = 'tags.delete_tag'
+    template_name_suffix = '-confirm-delete'

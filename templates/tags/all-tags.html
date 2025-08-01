@@ -2,12 +2,15 @@
 {% block content %}
     <div class="row p-3 gap-3">
         {% for tag in tags %}
-            <div class="card col-lg-1">
+            <div class="card col-lg-2">
                 <div class="card-header">
-                    <p class="card-title fw-bold">{{ tag.name }}</p>
+                    <p class="card-title fw-bold center text-center">{{ tag.name }}</p>
                 </div>
                 <div class="card-body">
-                    <a href="{% url 'edit-tag' tag.pk %}" class="btn btn-primary">Edit</a>
+                    <div class="flex-wrap flex-container d-flex justify-content-around flex-row">
+                        <a href="{% url 'edit-tag' tag.pk %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete-tag' tag.pk %}" class="btn btn-danger">Delete</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
