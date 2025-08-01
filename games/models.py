@@ -56,6 +56,12 @@ class Game(models.Model):
         ],
     )
 
+    tags = models.ManyToManyField(
+        to='tags.Tag',
+        related_name='games',
+        blank=True,
+    )
+
     def __str__(self):
         return self.name
 

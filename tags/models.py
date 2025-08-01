@@ -8,11 +8,5 @@ class Tag(models.Model):
         unique=True,
     )
 
-    games = models.ManyToManyField(
-        to='games.Game',
-        related_name='tags',
-        blank=True,
-    )
-
     def __str__(self):
         return self.name
