@@ -11,3 +11,7 @@ class TagBaseForm(ModelForm):
 
 class TagCreateForm(TagBaseForm):
     ...
+
+
+class TagEditForm(TagBaseForm):
+    ...

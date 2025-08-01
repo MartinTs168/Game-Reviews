@@ -6,6 +6,9 @@
                 <div class="card-header">
                     <p class="card-title fw-bold">{{ tag.name }}</p>
                 </div>
+                <div class="card-body">
+                    <a href="{% url 'edit-tag' tag.pk %}" class="btn btn-primary">Edit</a>
+                </div>
             </div>
         {% endfor %}
     </div>
