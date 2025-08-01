@@ -33,9 +33,10 @@ class Command(BaseCommand):
             permissions = Permission.objects.filter(
                 content_type__app_label__in=('games', 'tags', 'reviews',),
                 codename__in=(
-                    'add_game', 'change_game', 'delete_game',
-                    'add_tag', 'change_tag', 'delete_tag',
-                    'delete_review',
+                    'add_game', 'change_game', 'delete_game', 'view_game',
+                    'add_tag', 'change_tag', 'delete_tag', 'view_tag',
+                    'delete_review', 'view_review',
+                    'view_rating',
                 )
             )
 
