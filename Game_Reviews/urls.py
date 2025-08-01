@@ -25,6 +25,7 @@ urlpatterns = [
     path('common/', include('common.urls')),
     path('accounts/', include('accounts.urls')),
     path('games/', include('games.urls')),
+    path('tags/', include('tags.urls')),
 ]
 
 if settings.DEBUG:
