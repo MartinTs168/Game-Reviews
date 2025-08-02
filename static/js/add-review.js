@@ -13,6 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('formdata', (event) => {
         // Append Quill content before submitting
-        event.formData.append('content', JSON.stringify(quill.getContents().ops));
+        event.formData.append('content', quill.root.innerHTML);
     });
 });

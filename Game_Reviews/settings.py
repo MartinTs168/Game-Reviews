@@ -53,6 +53,7 @@ INSTALLED_APPS = [
                      'django.contrib.sessions',
                      'django.contrib.messages',
                      'django.contrib.staticfiles',
+                     'django_bleach',
                  ] + PROJECT_APPS
 
 MIDDLEWARE = [
@@ -157,3 +158,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Default users passwords
 DJANGO_ADMIN_PASSWORD = env('DJANGO_ADMIN_PASSWORD', default=None)
 DJANGO_DEFAULT_EMPLOYEE_PASSWORD = env('DJANGO_DEFAULT_EMPLOYEE_PASSWORD', default=None)
+
+# Settings for django-bleach
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'ul', 'ol', 'li', 'br', 'span', 'div']
+BLEACH_ALLOWED_ATTRIBUTES = {
+    '*': ['class'],
+}
+BLEACH_ALLOWED_STYLES = []
+BLEACH_STRIP_TAGS = True
+BLEACH_STRIP_COMMENTS = True

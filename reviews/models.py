@@ -1,8 +1,10 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django_bleach.models import BleachField
+
 
 class Review(models.Model):
-    content = models.TextField(
+    content = BleachField(
         validators=[
             MinLengthValidator(10),
         ],
