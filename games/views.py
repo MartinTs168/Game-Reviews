@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 
@@ -51,6 +52,21 @@ class GameEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 class GameDetailsView(DetailView):
     model = Game
     template_name = 'games/details-game.html'
+
+    def get_queryset(self):
+        return self.model.objects.prefetch_related('tags', 'reviews', 'reviews__author')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        game = context['object']
+
+        curr_user_review = game.reviews.filter(
+            author=self.request.user).first() if self.request.user.is_authenticated else None
+
+        if curr_user_review:
+            context.update({'curr_user_review': curr_user_review})
+
+        return context
 
 
 class GameDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):

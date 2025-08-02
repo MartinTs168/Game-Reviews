@@ -19,6 +19,7 @@ class Review(models.Model):
     game = models.ForeignKey(
         to='games.Game',
         on_delete=models.CASCADE,
+        related_name='reviews',
     )
 
     date_last_change = models.DateTimeField(
