@@ -27,13 +27,15 @@
             <div class="w-100"><p>{{ game.publisher }}</p></div>
             <div class="w-100"><p>{{ game.available_platforms }}</p></div>
             <div class="w-100"><p>{{ game.release_date }}</p></div>
-            <form method="post" id="review-form" action="{% url 'create-review' game_id=game.pk %}">
-                <div id="editor" style="height: 200px; width: 800px; margin-bottom: 10px;">
+            {% if user.is_authenticated %}
+                <form method="post" id="review-form" action="{% url 'create-review' game_id=game.pk %}">
+                    <div id="editor" style="height: 200px; width: 800px; margin-bottom: 10px;">
 
-                </div>
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Add review</button>
-            </form>
+                    </div>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Add review</button>
+                </form>
+            {% endif %}
             {% if user|has_group:"Employee" %}
                 <div class="w-100">
                     <a href="{% url 'edit-game' game.pk %}" class="btn btn-secondary">Edit</a>

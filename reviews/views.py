@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.db import IntegrityError
 from django.shortcuts import redirect
+from django.forms import ValidationError
 
 from reviews.forms import ReviewCreateForm
 
@@ -21,4 +22,6 @@ def create_review(request, game_id):
                 request,
                 "You have already reviewed this game. You can only submit one review per game."
             )
+        except ValidationError as ve:
+            messages.error(request, ve.message)
     return redirect(request.META.get('HTTP_REFERER') + f"#{game_id}")
