@@ -1,0 +1,16 @@
+.rating-button {
+    color: lightgray;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.rating-button:hover,
+.rating-button:hover ~ .rating-button {
+    color: gold;
+}
+
+
+.rating-button.selected,
+.rating-button.selected ~ .rating-button {
+    color: gold
+}

@@ -4,18 +4,28 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'dist/quill.snow.css' %}">
+    <link rel="stylesheet" href="{% static 'css/game-details.css' %}">
 {% endblock %}
 {% block content %}
     <div class="flex-container flex-wrap d-flex justify-content-around">
-        <div class="flex-item">
-            {% if game.image %}
-                <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
-            {% else %}
-                <p>No image</p>
-            {% endif %}
+        <div class="flex-item flex-container d-flex flex-column gap-5 pt-3 pb-3 mb-2">
+            <div class="flex-item">
+                {% if game.image %}
+                    <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                {% else %}
+                    <p>No image</p>
+                {% endif %}
+            </div>
+            <div class="flex-item align-self-center gap-3 flex-container d-flex flex-wrap flex-row-reverse">
+                <i class="bi bi-star-fill rating-button" data-value="5"></i>
+                <i class="bi bi-star-fill rating-button" data-value="4"></i>
+                <i class="bi bi-star-fill rating-button" data-value="3"></i>
+                <i class="bi bi-star-fill rating-button" data-value="2"></i>
+                <i class="bi bi-star-fill rating-button" data-value="1"></i>
+            </div>
         </div>
 
-        <div class="flex-item flex-container d-flex flex-wrap" style="flex: 0 0 50%;">
+        <div class="flex-item flex-container d-flex flex-wrap p-3" style="flex: 0 0 50%;">
             <h3>{{ game.name }}</h3>
             <div class="w-100">
                 {% for tag in game.tags.all %}
