@@ -64,11 +64,19 @@ class GameDetailsView(DetailView):
         context = super().get_context_data(**kwargs)
         game = context['object']
 
-        curr_user_review = game.reviews.filter(
-            author=self.request.user).first() if self.request.user.is_authenticated else None
+        curr_user_review = (game.reviews.filter(
+            author=self.request.user
+        ).first()) if self.request.user.is_authenticated else None
+
+        curr_user_rating = game.ratings.filter(
+            user=self.request.user
+        ).first() if self.request.user.is_authenticated else None
 
         if curr_user_review:
             context.update({'curr_user_review': curr_user_review})
+
+        if curr_user_rating:
+            context.update({'curr_user_rating_value': curr_user_rating.value})
 
         return context
 

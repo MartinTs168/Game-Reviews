@@ -16,13 +16,15 @@
                     <p>No image</p>
                 {% endif %}
             </div>
-            <div class="flex-item align-self-center gap-3 flex-container d-flex flex-wrap flex-row-reverse">
-                <i class="bi bi-star-fill rating-button" data-value="5"></i>
-                <i class="bi bi-star-fill rating-button" data-value="4"></i>
-                <i class="bi bi-star-fill rating-button" data-value="3"></i>
-                <i class="bi bi-star-fill rating-button" data-value="2"></i>
-                <i class="bi bi-star-fill rating-button" data-value="1"></i>
-            </div>
+            {% if user.is_authenticated %}
+                <div class="flex-item align-self-center gap-3 flex-container d-flex flex-wrap flex-row-reverse">
+                    <i class="bi bi-star-fill rating-button" data-value="5"></i>
+                    <i class="bi bi-star-fill rating-button" data-value="4"></i>
+                    <i class="bi bi-star-fill rating-button" data-value="3"></i>
+                    <i class="bi bi-star-fill rating-button" data-value="2"></i>
+                    <i class="bi bi-star-fill rating-button" data-value="1"></i>
+                </div>
+            {% endif %}
         </div>
 
         <div class="flex-item flex-container d-flex flex-wrap p-3" style="flex: 0 0 50%;">
@@ -89,4 +91,12 @@
     {{ block.super }}
     <script src="{% static 'dist/quill.js' %}"></script>
     <script src="{% static 'js/add-review.js' %}"></script>
+    <script>
+        window.djangoInfo = {
+            csrfToken: document.querySelector('[name=csrfmiddlewaretoken]').value,
+            ratingCreateUrl: "{% url 'create-rating' pk=game.pk %}",
+            currUserRating: {{ curr_user_rating_value }},
+        };
+    </script>
+    <script src="{% static 'js/rating-events.js' %}"></script>
 {% endblock %}
