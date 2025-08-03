@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const form = document.querySelector('#review-form');
+    quill.clipboard.dangerouslyPasteHTML(document.querySelector('#django-form-container>p>textarea').value)
+
 
     form.addEventListener('formdata', (event) => {
         // Append Quill content before submitting

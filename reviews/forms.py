@@ -12,7 +12,6 @@ class ReviewBaseForm(ModelForm):
     def clean_content(self):
         content = self.cleaned_data['content']
 
-        # Check if content is essentially empty
         text_only = strip_tags(content)
         if not text_only.strip():
             raise ValidationError('Review content cannot be empty.')
@@ -21,4 +20,8 @@ class ReviewBaseForm(ModelForm):
 
 
 class ReviewCreateForm(ReviewBaseForm):
+    ...
+
+
+class ReviewEditForm(ReviewBaseForm):
     ...

@@ -1,0 +1,26 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'dist/quill.snow.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="post" id="review-form">
+        <div id="django-form-container" style="display: none">
+            {{ form.as_p }}
+        </div>
+        <div id="editor" style="height: 200px; width: 800px; margin-bottom: 10px;">
+
+        </div>
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Edit review</button>
+        <a href="{% url 'game-details' review.game_id %}" class="btn btn-secondary">Back</a>
+    </form>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'dist/quill.js' %}"></script>
+    <script src="{% static 'js/edit-review.js' %}"></script>
+{% endblock %}

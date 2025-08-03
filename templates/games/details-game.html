@@ -52,6 +52,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Author: <i>{{ curr_user_review.author }}</i></h5>
                         <p class="card-text">{{ curr_user_review.content }}</p>
+                        <a href="{% url 'edit-review' curr_user_review.pk %}" class="btn btn-primary">
+                            Edit
+                        </a>
                     </div>
                 </div>
             {% endif %}

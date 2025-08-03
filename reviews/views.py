@@ -1,9 +1,14 @@
 from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.forms import ValidationError
+from django.urls import reverse_lazy
+from django.views.generic import UpdateView
 
-from reviews.forms import ReviewCreateForm
+from common.mixins import UserIsOwnerMixin
+from reviews.forms import ReviewCreateForm, ReviewEditForm
+from reviews.models import Review
 
 
 # Create your views here.
@@ -25,3 +30,15 @@ def create_review(request, game_id):
         except ValidationError as ve:
             messages.error(request, ve.message)
     return redirect(request.META.get('HTTP_REFERER') + f"#{game_id}")
+
+
+class ReviewEditView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
+    model = Review
+    form_class = ReviewEditForm
+    template_name = 'reviews/edit-review.html'
+
+    def get_success_url(self):
+        return reverse_lazy('game-details', kwargs={'pk': self.object.game.pk})
+
+    def test_func(self):
+        return self.request.user.pk == self.get_object().author.pk
