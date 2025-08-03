@@ -1,9 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from rest_framework.generics import CreateAPIView, get_object_or_404
+from rest_framework.response import Response
+from rest_framework import status
+from django.db import IntegrityError
 
 from games.forms import GameCreateForm, GameEditForm
-from games.models import Game
+from games.models import Game, Rating
+from games.serializers import RatingSerializer
 from tags.models import Tag
 
 
@@ -73,3 +78,29 @@ class GameDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('all-games')
     permission_required = 'games.delete_game'
     template_name_suffix = '-confirm-delete'
+
+
+class RatingCreateView(LoginRequiredMixin, CreateAPIView):
+    queryset = Rating.objects.all()
+    serializer_class = RatingSerializer
+
+    def perform_create(self, serializer):
+        game_id = self.kwargs.get('pk')
+        game = get_object_or_404(Game, pk=game_id)
+
+        try:
+            serializer.save(
+                game=game,
+                user=self.request.user
+            )
+        except IntegrityError:
+            raise
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except IntegrityError:
+            return Response(
+                {"detail": "You have already rated this game. Only one rating per game is allowed."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
