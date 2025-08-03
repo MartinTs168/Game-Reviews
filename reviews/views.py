@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
+from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.forms import ValidationError
 from django.urls import reverse_lazy
@@ -12,7 +13,7 @@ from reviews.models import Review
 
 
 # Create your views here.
-def create_review(request, game_id):
+def create_review(request: HttpRequest, game_id: int):
     form = ReviewCreateForm(request.POST or None)
 
     if request.method == 'POST' and form.is_valid() and request.user.is_authenticated:
