@@ -4,7 +4,7 @@ from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.forms import ValidationError
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 from common.mixins import UserIsOwnerMixin
 from reviews.forms import ReviewCreateForm, ReviewEditForm
@@ -39,6 +39,15 @@ class ReviewEditView(LoginRequiredMixin, UserIsOwnerMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('game-details', kwargs={'pk': self.object.game.pk})
+
+    def test_func(self):
+        return self.request.user.pk == self.get_object().author.pk
+
+
+class ReviewDeleteView(LoginRequiredMixin, UserIsOwnerMixin, DeleteView):
+    model = Review
+    success_url = reverse_lazy('all-games')
+    template_name_suffix = '-confirm-delete'
 
     def test_func(self):
         return self.request.user.pk == self.get_object().author.pk

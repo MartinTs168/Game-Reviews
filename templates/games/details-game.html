@@ -55,6 +55,9 @@
                         <a href="{% url 'edit-review' curr_user_review.pk %}" class="btn btn-primary">
                             Edit
                         </a>
+                        <a href="{% url 'delete-review' curr_user_review.pk %}" class="btn btn-danger">
+                            Delete
+                        </a>
                     </div>
                 </div>
             {% endif %}
