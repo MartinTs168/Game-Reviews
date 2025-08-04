@@ -59,6 +59,11 @@ main {
     color: black;
 }
 
+.btn-outline-primary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
 .navbar.fixed-top {
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
@@ -97,4 +102,13 @@ main {
 
 .form-control[rows] {
     height: auto !important;
+}
+
+.checkbox-pill input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-pill input[type="checkbox"]:checked + label {
+    background-color: var(--accent-color);
+    color: white;
 }

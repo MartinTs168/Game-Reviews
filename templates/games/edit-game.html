@@ -1,24 +1,86 @@
 {% extends 'common/base.html' %}
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/edit-game.css' %}">
+{% endblock %}
 {% block content %}
-    <div class="flex-container d-flex justify-content-around flex-wrap">
+    <div class="flex-container d-flex justify-content-between flex-wrap p-2 flex-md-row flex-sm-column">
 
-        <div>
+        <div class="align-self-start flex-container d-flex justify-content-center p-1 image-container-wrapper">
             {% if game.image %}
-                <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                <div class="image-container">
+                    <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
+                </div>
             {% else %}
                 <p>No image</p>
             {% endif %}
         </div>
 
-        <div>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_div }}
-                {{ form.errors }}
+        <div class="row flex-container d-flex justify-content-center p-1">
+            <div class="col-md-6 p-4 form-container">
+                <form method="post" enctype="multipart/form-data" class="flex-container d-flex flex-column gap-4">
+                    {% csrf_token %}
 
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a href="{% url 'game-details' game.pk %}" class="btn btn-secondary">Back</a>
-            </form>
+                    <div class="form-floating">
+                        {{ form.name }}
+                        <label for="{{ form.name.id_for_label }}">Game Name</label>
+                        <span class="text-danger">{{ form.name.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.developer }}
+                        <label for="{{ form.developer.id_for_label }}">Developer</label>
+                        <span class="text-danger">{{ form.developer.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.publisher }}
+                        <label for="{{ form.publisher.id_for_label }}">Publisher</label>
+                        <span class="text-danger">{{ form.publisher.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.description }}
+                        <label for="{{ form.description.id_for_label }}">Description</label>
+                        <span class="text-danger">{{ form.description.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.available_platforms }}
+                        <label for="{{ form.available_platforms.id_for_label }}">Available Platforms</label>
+                        <span class="text-danger">{{ form.available_platforms.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.release_date }}
+                        <label for="{{ form.release_date.id_for_label }}">Release Date</label>
+                        <span class="text-danger">{{ form.release_date.errors }}</span>
+                    </div>
+
+                    <div class="form-floating">
+                        {{ form.image }}
+                        <label for="{{ form.image.id_for_label }}">Image</label>
+                        <span class="text-danger">{{ form.image.errors }}</span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">{{ form.tags.label }}</label>
+                        <div class="d-flex flex-wrap gap-2 justify-content-between">
+                            {% for choice in form.tags %}
+                                <div class="form-check form-check-inline checkbox-pill">
+                                    {{ choice.tag }}
+                                    <label class="btn btn-outline-primary" for="{{ choice.id_for_label }}">
+                                        {{ choice.choice_label }}
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+            </div>
         </div>
 
 
