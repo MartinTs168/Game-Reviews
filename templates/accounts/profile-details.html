@@ -1,13 +1,29 @@
 {% extends 'common/base.html' %}
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/profile-details.css' %}">
+{% endblock %}
 {% block content %}
-    <h3>Hello {{ profile.user.username }}</h3>
-    <p>Email: {{ profile.user.email }}</p>
-    <p>Bio:
-        {% if profile.bio %}
-            {{ profile.bio }}
-        {% endif %}
-    </p>
-    <a href="{% url 'profile-edit' user.pk %}" class="btn btn-secondary">
-        Edit profile
-    </a>
+    <div class="flex-container d-flex justify-content-around">
+        <section class="flex-container d-flex gap-2 p-4 flex-column flex-wrap">
+            <h3>Hello {{ profile.user.username }}</h3>
+            <p>Email: {{ profile.user.email }}</p>
+            <p>Bio:
+                {% if profile.bio %}
+                    {{ profile.bio }}
+                {% endif %}
+            </p>
+            <div class="w-50">
+                <a href="{% url 'profile-edit' user.pk %}" class="btn btn-secondary">
+                    Edit profile
+                </a>
+            </div>
+        </section>
+        <section class="image-container">
+            {% if profile.profile_picture %}
+                <img src="{{ profile.profile_picture.url }}" alt="profile image">
+            {% endif %}
+        </section>
+    </div>
 {% endblock %}

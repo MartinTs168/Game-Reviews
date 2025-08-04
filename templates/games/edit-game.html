@@ -2,7 +2,7 @@
 {% block content %}
     <div class="flex-container d-flex justify-content-around flex-wrap">
 
-        <div class="flex-item">
+        <div>
             {% if game.image %}
                 <img src="{{ game.image.url }}" alt="" class="img-fluid p-1">
             {% else %}
@@ -10,7 +10,7 @@
             {% endif %}
         </div>
 
-        <div class="flex-item">
+        <div>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_div }}
