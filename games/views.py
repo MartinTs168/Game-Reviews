@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.http import HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
-from rest_framework.generics import CreateAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, get_object_or_404, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.db import IntegrityError
@@ -112,3 +113,17 @@ class RatingCreateView(LoginRequiredMixin, CreateAPIView):
                 {"detail": "You have already rated this game. Only one rating per game is allowed."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+
+class RatingUpdateView(LoginRequiredMixin, UpdateAPIView):
+    serializer_class = RatingSerializer
+
+    def get_object(self):
+        game_id = self.kwargs.get('pk')
+        game = get_object_or_404(Game, pk=game_id)
+
+        try:
+            rating = Rating.objects.get(game=game, user=self.request.user)
+            return rating
+        except Rating.DoesNotExist:
+            raise Http404("Rating not found for this user and game")
