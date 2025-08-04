@@ -1,9 +1,25 @@
 {% extends 'common/base.html' %}
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_div }}
-        <button type="submit" class="btn btn-primary">Save</button>
-        <a href="{% url 'profile-details' user.pk %}" class="btn btn-secondary">Back</a>
-    </form>
+    <div class="row flex-container d-flex justify-content-center p-4">
+        <div class="col-md-4 p-4 form-container mt-5">
+            <form method="post" enctype="multipart/form-data"
+                  class="flex-container d-flex flex-column gap-4">
+                {% csrf_token %}
+
+                <div>
+                    <label for="{{ form.profile_picture.id_for_label }}">Upload Image</label>
+                    {{ form.profile_picture }}
+                    <span class="text-danger">{{ form.image.errors }}</span>
+                </div>
+
+                <div class="form-floating">
+                    {{ form.bio }}
+                    <label for="{{ form.bio.id_for_label }}">Bio</label>
+                    <span class="text-danger">{{ form.bio.errors }}</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="{% url 'profile-details' user.pk %}" class="btn btn-secondary">Back</a>
+            </form>
+        </div>
+    </div>
 {% endblock %}

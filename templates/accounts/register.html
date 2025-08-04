@@ -8,13 +8,13 @@
 
                 <div class="form-floating">
                     {{ form.username }}
-                    <label for="username">Username</label>
+                    <label for="{{ form.username.id_for_label }}">Username</label>
                     <span class="text-danger">{{ form.username.errors }}</span>
                 </div>
 
                 <div class="form-floating">
                     {{ form.email }}
-                    <label for="email">Email</label>
+                    <label for="{{ form.email.id_for_label }}">Email</label>
                     <span class="text-danger">{{ form.email.errors }}</span>
                 </div>
 

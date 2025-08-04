@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm
-from django.forms.widgets import Textarea, TextInput, PasswordInput
+from django.forms.fields import FilePathField
+from django.forms.widgets import Textarea, TextInput, PasswordInput, FileInput
 
 from accounts.models import Profile
 
@@ -31,3 +32,11 @@ class ProfileBaseForm(ModelForm):
 class ProfileEditForm(ProfileBaseForm):
     class Meta(ProfileBaseForm.Meta):
         exclude = ('user',)
+
+        widgets = {
+            'bio': Textarea(attrs={
+                'class': 'form-control',
+                'rows': 5
+            }),
+            'profile_picture': FileInput(attrs={'class': 'form-control'}),
+        }

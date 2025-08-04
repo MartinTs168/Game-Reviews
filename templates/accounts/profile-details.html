@@ -5,22 +5,25 @@
     <link rel="stylesheet" href="{% static 'css/profile-details.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="flex-container d-flex justify-content-around">
-        <section class="flex-container d-flex gap-2 p-4 flex-column flex-wrap">
+    <div class="flex-container d-flex justify-content-around flex-sm-column flex-md-row align-items-sm-center">
+        <section class="flex-container d-flex gap-2 p-4 flex-column flex-wrap profile-info">
             <h3>Hello {{ profile.user.username }}</h3>
             <p>Email: {{ profile.user.email }}</p>
-            <p>Bio:
+            <div>
+                <p>Bio:</p>
                 {% if profile.bio %}
-                    {{ profile.bio }}
+                    <div class="w-50 flex-container flex-wrap">
+                        {{ profile.bio }}
+                    </div>
                 {% endif %}
-            </p>
-            <div class="w-50">
-                <a href="{% url 'profile-edit' user.pk %}" class="btn btn-secondary">
-                    Edit profile
-                </a>
+                <div class="w-50 mt-3">
+                    <a href="{% url 'profile-edit' user.pk %}" class="btn btn-secondary">
+                        Edit profile
+                    </a>
+                </div>
             </div>
         </section>
-        <section class="image-container">
+        <section class="image-container profile-image">
             {% if profile.profile_picture %}
                 <img src="{{ profile.profile_picture.url }}" alt="profile image">
             {% endif %}

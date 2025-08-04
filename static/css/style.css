@@ -79,3 +79,7 @@ main {
     border-radius: 1rem;
     box-shadow: var(--shadow)
 }
+
+.form-control[rows] {
+    height: auto !important;
+}
