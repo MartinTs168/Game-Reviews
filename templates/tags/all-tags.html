@@ -1,19 +1,23 @@
 {% extends 'common/base.html' %}
 {% block content %}
-    <div class="row p-3 gap-3">
-        {% for tag in tags %}
-            <div class="card col-lg-2">
-                <div class="card-header">
-                    <p class="card-title fw-bold center text-center">{{ tag.name }}</p>
-                </div>
-                <div class="card-body">
-                    <div class="flex-wrap flex-container d-flex justify-content-around flex-row">
-                        <a href="{% url 'edit-tag' tag.pk %}" class="btn btn-primary">Edit</a>
-                        <a href="{% url 'delete-tag' tag.pk %}" class="btn btn-danger">Delete</a>
+    <div class="container-fluid p-5">
+        <div class="row g-3">
+            {% for tag in tags %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <p class="card-title fw-bold text-center">{{ tag.name }}</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-around">
+                                <a href="{% url 'edit-tag' tag.pk %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'delete-tag' tag.pk %}" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
 

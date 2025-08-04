@@ -33,15 +33,30 @@ main {
     height: 80vh;
 }
 
+.btn {
+    box-shadow: var(--shadow);
+    border: none;
+    color: black;
+}
+
+.btn:hover {
+    background-color: var(--accent-color) !important;
+    color: white;
+}
+
 .btn-primary {
     background-color: rgba(44, 229, 229, 0.9) !important;
-    border: none;
     color: black;
     box-shadow: var(--shadow);
 }
 
-.btn-primary:hover {
-    background-color: var(--accent-color) !important;
+.btn-secondary {
+    background-color: rgba(164, 159, 159, 0.99);
+}
+
+.btn-danger {
+    background-color: rgba(246, 4, 4, 0.75);
+    color: black;
 }
 
 .navbar.fixed-top {
