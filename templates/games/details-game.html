@@ -95,6 +95,7 @@
         window.djangoInfo = {
             csrfToken: document.querySelector('[name=csrfmiddlewaretoken]').value,
             ratingCreateUrl: "{% url 'create-rating' pk=game.pk %}",
+            ratingUpdateUrl: "{% url 'edit-rating' pk=game.pk %}",
             currUserRating: {{ curr_user_rating_value }},
         };
     </script>

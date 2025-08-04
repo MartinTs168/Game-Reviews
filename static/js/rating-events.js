@@ -3,11 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
         '.rating-button');
 
     const hasRating = window.djangoInfo.currUserRating !== null;
-
+    const selectedRatingButton = document.querySelector(
+        `.rating-button[data-value="${window.djangoInfo.currUserRating}"]`
+    )
     if (hasRating) {
-        document.querySelector(
-            `.rating-button[data-value="${window.djangoInfo.currUserRating}"]`
-        ).classList.add('selected');
+        selectedRatingButton.classList.add('selected');
 
     }
 
@@ -20,12 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error('Invalid rating value');
             }
 
-            try {
-                await createRating(ratingValue);
-                event.target.classList.add('selected');
+            if (hasRating) {
+                try {
+                    await updateRating(ratingValue);
+                    event.target.classList.add('selected');
+                    selectedRatingButton.classList.remove('selected');
+                } catch (error) {
+                    console.log(error);
+                }
+            } else {
 
-            } catch (error) {
-                console.log(error);
+                try {
+                    await createRating(ratingValue);
+                    event.target.classList.add('selected');
+
+                } catch (error) {
+                    console.log(error);
+                }
             }
 
 
@@ -42,6 +53,26 @@ async function createRating(ratingValue) {
         const response = await fetch(
             window.djangoInfo.ratingCreateUrl, {
                 method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': window.djangoInfo.csrfToken,
+                },
+                body: JSON.stringify(ratingData),
+            });
+    } catch (error) {
+        throw error;
+    }
+}
+
+async function updateRating(ratingValue) {
+    const ratingData = {
+        value: ratingValue,
+    }
+
+    try {
+        const response = await fetch(
+            window.djangoInfo.ratingUpdateUrl, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': window.djangoInfo.csrfToken,
