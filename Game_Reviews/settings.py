@@ -55,6 +55,7 @@ INSTALLED_APPS = [
                      'django.contrib.staticfiles',
                      'rest_framework',
                      'django_bleach',
+                     'widget_tweaks'
                  ] + PROJECT_APPS
 
 MIDDLEWARE = [
