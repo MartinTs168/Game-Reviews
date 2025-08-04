@@ -1,4 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db.models import Q
+from django.db.models.aggregates import Count
 from django.http import HttpResponseNotFound, Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
@@ -7,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.db import IntegrityError
 
+import tags
 from games.forms import GameCreateForm, GameEditForm
 from games.models import Game, Rating
 from games.serializers import RatingSerializer
@@ -18,6 +21,30 @@ class GameAllView(ListView):
     template_name = 'games/all-games.html'
     context_object_name = 'games'
     ordering = ['name']
+
+    def get_queryset(self):
+        queryset = super().get_queryset().prefetch_related('tags')
+        tag_ids = self.request.GET.getlist('tags')
+        search_string = self.request.GET.get('search')
+        if tag_ids:
+            queryset = (queryset.filter(
+                Q(tags__in=tag_ids) &
+                Q(name__icontains=search_string)
+            ).annotate(
+                num_matched=Count(
+                    'tags', filter=Q(tags__in=tag_ids))
+            ).filter(
+                num_matched=len(tag_ids))
+            )
+        return queryset.distinct()
+
+    def get_context_data(
+            self, *, object_list=..., **kwargs
+    ):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        context['selected_tags'] = self.request.GET.getlist('tags')
+        return context
 
 
 class GameCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

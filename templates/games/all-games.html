@@ -1,5 +1,17 @@
 {% extends 'common/base.html' %}
 {% block content %}
+    <form method="get">
+        <select name="tags" id="tags" multiple>
+            <label for="tags">Select one or more tags</label>
+            {% for tag in tags %}
+                <option value="{{ tag.pk }}" {% if tag.pk|stringformat:"s" in selected_tag_ids %}selected{% endif %}>
+                    {{ tag.name }}
+                </option>
+            {% endfor %}
+        </select>
+        <input type="text" name="search" value="{{ request.GET.search }}">
+        <button type="submit">Search</button>
+    </form>
     <div class="row p-3 gap-3">
         {% for game in games %}
             <div class="card col-lg-2">
@@ -14,7 +26,6 @@
                     </div>
                 </a>
             </div>
-            
         {% endfor %}
     </div>
 {% endblock %}
