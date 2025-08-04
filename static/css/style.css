@@ -1,5 +1,19 @@
 body {
     padding-top: 70px;
+    background-color: rgba(37, 36, 36, 0.98);
+    color: white;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 a {
@@ -8,7 +22,9 @@ a {
 }
 
 main {
-    margin-top: 2rem;
+    margin-top: 10rem;
+    width: 100vw;
+    height: 80vh;
 }
 
 .navbar.fixed-top {

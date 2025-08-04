@@ -1,5 +1,25 @@
 {% extends 'common/base.html' %}
+{% load static %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/home-page.css' %}">
+{% endblock %}
 {% block content %}
-    <h1 class="">Welcome</h1>
-    <h2>Home Page</h2>
+    <div class="flex-container d-flex justify-content-around flex-sm-column flex-md-row align-items-center gap-4">
+        <div class="flex-item align-self-start home-phrase align-self-sm-center align-self-md-baseline">
+            <h1 class="">Welcome to GoodGaming</h1>
+            <h3>the place to find the best games</h3>
+        </div>
+        <div class="flex-item top-game flex-container flex-column
+        d-flex justify-content-center align-items-center gap-3">
+            <div class="image-container">
+                <img src="{{ top_game.image.url }}" alt="game cover image">
+            </div>
+            <div class="game-info text-center">
+                <h3>{{ top_game.name }}</h3>
+                <p>The game with the highest average rating {{ top_game.avg_rating }}</p>
+            </div>
+        </div>
+
+    </div>
 {% endblock %}
