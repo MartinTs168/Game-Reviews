@@ -1,11 +1,24 @@
 {% extends 'common/base.html' %}
+{% load widget_tweaks %}
 {% block content %}
-    <div class="flex-container">
-        <form class="form-multiline" method="post">
-            {% csrf_token %}
-            {{ form.as_div }}
+    <div class="row flex-container d-flex justify-content-center p-4">
+        <div class="col-md-4 p-4 form-container mt-5">
+            <form class="flex-container d-flex flex-column gap-4" method="post">
+                {% csrf_token %}
 
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
+                <div class="form-floating">
+                    {{ form.username|add_class:"form-control" }}
+                    <label for="username">Username</label>
+                    <span class="text-danger">{{ form.username.errors }}</span>
+                </div>
+
+                <div class="form-floating">
+                    {{ form.password|add_class:"form-control" }}
+                    <label for="{{ form.password.id_for_label }}">Password</label>
+                    <span class="text-danger">{{ form.password1.errors }}</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
     </div>
 {% endblock %}

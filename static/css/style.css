@@ -36,11 +36,12 @@ main {
 .btn-primary {
     background-color: rgba(44, 229, 229, 0.9) !important;
     border: none;
-    color: black
+    color: black;
+    box-shadow: var(--shadow);
 }
 
 .btn-primary:hover {
-    color: var(--accent-color) !important;
+    background-color: var(--accent-color) !important;
 }
 
 .navbar.fixed-top {
