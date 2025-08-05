@@ -16,6 +16,9 @@ jobs:
     permissions:
       contents: read #This is required for actions/checkout
 
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    
     steps:
       - uses: actions/checkout@v4
 
