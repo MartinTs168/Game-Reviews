@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from django.core.validators import MinLengthValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -47,8 +48,8 @@ class Game(models.Model):
         ]
     )
 
-    image = models.ImageField(
-        upload_to='games_images/',
+    image = CloudinaryField(
+        'image',
         validators=[
             FileSizeValidator(MAX_IMAGE_SIZE_MB)
         ],

@@ -1,5 +1,6 @@
 import uuid
 
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -48,8 +49,8 @@ class Profile(models.Model):
         primary_key=True,
     )
 
-    profile_picture = models.ImageField(
-        upload_to='profile_pictures/',
+    profile_picture = CloudinaryField(
+        'profile_picture',
         null=True,
         blank=True,
         validators=[

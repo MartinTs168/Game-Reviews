@@ -104,7 +104,7 @@ DATABASES = {
         'HOST': env('DB_HOST', default='localhost'),
         'PORT': env('DB_PORT', default='5432'),
         'OPTIONS': {
-            'sslmode': 'require' if not DEBUG else 'prefer',  # Required for Azure PostgreSQL
+            'sslmode': 'require'
         },
     }
 }
@@ -153,35 +153,12 @@ STATICFILES_DIRS = [
     BASE_DIR / "node_modules" / "quill",
 ]
 
-STORAGES = {
-    # ← this is what was missing
-    "default": {
-        # local filesystem in dev, Cloudinary in prod
-        "BACKEND": (
-            "django.core.files.storage.FileSystemStorage"
-            if DEBUG
-            else "cloudinary_storage.storage.MediaCloudinaryStorage"
-        ),
-        # only needed for FileSystemStorage:
-        "OPTIONS": {
-            "location": BASE_DIR / "media",
-        },
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-        # no OPTIONS needed here
-    },
-}
-
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
     'API_KEY': env('CLOUDINARY_API_KEY'),
     'API_SECRET': env('CLOUDINARY_API_SECRET'),
 }
-
-MEDIA_URL = 'media/'
-
-MEDIA_ROOT = BASE_DIR / 'media'
 
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
