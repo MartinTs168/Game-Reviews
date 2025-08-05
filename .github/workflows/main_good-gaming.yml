@@ -58,6 +58,14 @@ jobs:
       - name: Collect static files
         run: uv run python manage.py collectstatic
 
+      - name: Debug database connection
+        run: |
+          echo "DB_HOST: $DB_HOST"
+          echo "DB_PORT: $DB_PORT"
+          echo "DB_NAME: $DB_NAME"
+          echo "DB_USER: $DB_USER"
+          # Don't echo password for security
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
