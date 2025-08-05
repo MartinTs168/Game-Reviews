@@ -104,7 +104,7 @@ DATABASES = {
         'HOST': env('DB_HOST', default='localhost'),
         'PORT': env('DB_PORT', default='5432'),
         'OPTIONS': {
-            'sslmode': 'require',  # Required for Azure PostgreSQL
+            'sslmode': 'require' if not DEBUG else 'prefer',  # Required for Azure PostgreSQL
         },
     }
 }

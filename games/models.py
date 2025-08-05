@@ -49,8 +49,6 @@ class Game(models.Model):
 
     image = models.ImageField(
         upload_to='games_images/',
-        null=True,
-        blank=True,
         validators=[
             FileSizeValidator(MAX_IMAGE_SIZE_MB)
         ],
