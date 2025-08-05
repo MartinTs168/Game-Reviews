@@ -114,35 +114,6 @@ jobs:
       - name: Install npm dependencies
         run: npm ci
 
-      # Debug step to verify database variables
-      - name: Verify database configuration
-        run: |
-          echo "Checking database environment variables..."
-          if [ -z "$DB_HOST" ]; then
-            echo "ERROR: DB_HOST is not set"
-            exit 1
-          fi
-          if [ -z "$DB_NAME" ]; then
-            echo "ERROR: DB_NAME is not set"
-            exit 1
-          fi
-          if [ -z "$DB_USER" ]; then
-            echo "ERROR: DB_USER is not set"
-            exit 1
-          fi
-          if [ -z "$DB_PASSWORD" ]; then
-            echo "ERROR: DB_PASSWORD is not set"
-            exit 1
-          fi
-          echo "All database variables are set"
-          echo "DB_HOST length: ${#DB_HOST}"
-          echo "DB_PORT: $DB_PORT"
-
-      - name: Run migrations and setup db users
-        run: |
-          uv run python manage.py migrate --no-input
-          uv run python manage.py seed_initial_users
-
       - name: Collect static files
         run: uv run python manage.py collectstatic --no-input
 
