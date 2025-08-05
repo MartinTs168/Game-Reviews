@@ -112,3 +112,22 @@ main {
     background-color: var(--accent-color);
     color: white;
 }
+
+.card {
+    background-color: rgba(61, 63, 63, 0.9);
+    color: white;
+    box-shadow: var(--shadow);
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.card-body {
+    background: linear-gradient(to bottom,
+    rgba(57, 58, 58, 0.9) 0%,
+    rgba(53, 54, 54, 0.9) 100%);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    box-shadow: var(--shadow);
+}
