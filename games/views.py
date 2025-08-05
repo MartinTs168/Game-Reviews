@@ -20,6 +20,7 @@ class GameAllView(ListView):
     template_name = 'games/all-games.html'
     context_object_name = 'games'
     ordering = ['name']
+    paginate_by = 10
 
     def get_queryset(self):
         tag_ids = self.request.GET.getlist('tags')

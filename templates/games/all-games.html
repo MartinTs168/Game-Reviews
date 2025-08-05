@@ -68,5 +68,37 @@
                 {% endfor %}
             </div>
         </section>
+
+        {% if page_obj.has_other_pages %}
+            <section aria-label="Games pagination" class="justify-content-center d-flex flex-container">
+                <ul class="pagination justify-content-center mt-4 d-inline-flex">
+                    <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+                        <button class="page-link" type="submit" name="page" id="prev-page-btn"
+                                {% if page_obj.has_previous %}value="{{ page_obj.previous_page_number }}"{% endif %}
+                                {% if not page_obj.has_previous %} disabled{% endif %}>&laquo; Prev
+                        </button>
+                    </li>
+
+                    {% for item in paginator.get_elided_page_range %}
+                        {% if item == '…' %}
+                            <li class="page-item disabled"><span class="page-link">&hellip;</span></li>
+                        {% else %}
+                            <li class="page-item{% if page_obj.number == item %} active{% endif %}">
+                                <button class="page-link" type="submit" name="page"
+                                        value="{{ item }}">{{ item }}</button>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+                        <button class="page-link" type="submit" name="page" id="next-page-btn"
+                                {% if page_obj.has_next %}value="{{ page_obj.next_page_number }}"{% endif %}
+                                {% if not page_obj.has_next %} disabled{% endif %}>
+                            Next &raquo;
+                        </button>
+                    </li>
+                </ul>
+            </section>
+        {% endif %}
     </form>
 {% endblock %}

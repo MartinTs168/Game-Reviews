@@ -30,3 +30,58 @@
     color: white !important;
     background-color: var(--accent-color) !important;
 }
+
+.page-item,
+.page-item > button {
+    cursor: pointer;
+    color: black;
+    background-color: var(--primary-color);
+    border: none;
+}
+
+.page-item > button:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.page-item.active > button {
+    background-color: var(--accent-color) !important;
+    color: white !important;
+}
+
+section[aria-label="Games pagination"] > ul {
+    border-radius: 1rem;
+}
+
+#prev-page-btn,
+li:has(#prev-page-btn) {
+    border-radius: 1rem 0 0 1rem;
+}
+
+#next-page-btn,
+li:has(#next-page-btn) {
+    border-radius: 0 1rem 1rem 0;
+}
+
+section[aria-label="Games pagination"] > ul {
+    position: relative;
+    overflow: visible;
+}
+
+section[aria-label="Games pagination"] > ul::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+    z-index: 10;
+    border-radius: 1rem;
+}
+
+section[aria-label="Games pagination"] > ul > li {
+    position: relative;
+    z-index: 1;
+}
