@@ -14,3 +14,44 @@
 .rating-button.selected ~ .rating-button {
     color: gold
 }
+
+.image-container {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.image-container > img {
+    object-fit: cover;
+    width: 300px;
+    height: 400px;
+}
+
+.quill-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 200px;
+    min-height: 150px;
+}
+
+.quill-container .ql-editor {
+    min-height: 150px;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.quill-container .ql-toolbar {
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.review-container {
+    flex: 0 0 75%;
+    overflow: scroll;
+}
+
+.review-container .card-text {
+    max-width: 90%;
+}
