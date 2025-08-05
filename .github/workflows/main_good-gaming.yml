@@ -19,6 +19,19 @@ jobs:
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DEBUG: ${{ vars.DEBUG }}
+      ALLOWED_HOSTS: ${ {secrets.ALLOWED_HOSTS }}
+      CSRF_TRUSTED_ORIGINS: ${ {secrets.CSRF_TRUSTED_ORIGINS }}
+      DB_NAME: ${ {secrets.DB_NAME }}
+      DB_USER: ${ {secrets.DB_USER }}
+      DB_PASSWORD: ${ {secrets.DB_PASSWORD }}
+      DB_HOST: ${ {secrets.DB_HOST }}
+      DB_PORT: ${ {secrets.PORT }}
+      DJANGO_ADMIN_PASSWORD: ${ {secrets.DJANGO_ADMIN_PASSWORD }}
+      DJANGO_DEFAULT_EMPLOYEE_PASSWORD: ${ {secrets.DJANGO_DEFAULT_EMPLOYEE_PASSWORD }}
+      CLOUDINARY_CLOUD_NAME: ${ {secrets.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${ {secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${ {secrets.CLOUDINARY_API_SECRET }}
+
     
     steps:
       - uses: actions/checkout@v4
