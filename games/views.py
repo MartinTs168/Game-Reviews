@@ -1,15 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.db import IntegrityError
 from django.db.models import Q
-from django.db.models.aggregates import Count
-from django.http import HttpResponseNotFound, Http404
+from django.db.models.aggregates import Count, Avg
+from django.http import Http404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
+from rest_framework import status
 from rest_framework.generics import CreateAPIView, get_object_or_404, UpdateAPIView
 from rest_framework.response import Response
-from rest_framework import status
-from django.db import IntegrityError
 
-import tags
 from games.forms import GameCreateForm, GameEditForm
 from games.models import Game, Rating
 from games.serializers import RatingSerializer
@@ -105,6 +104,9 @@ class GameDetailsView(DetailView):
 
         if curr_user_rating:
             context.update({'curr_user_rating_value': curr_user_rating.value})
+
+        avg_rating = game.ratings.aggregate(Avg('value'))['value__avg']
+        context.update({'avg_rating': avg_rating})
 
         return context
 
