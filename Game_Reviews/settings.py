@@ -21,16 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hc8mhf0m&d&!e3=2xkd!2=360bsz)827!z9iskoq!(fvcp&nkq'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, True)
-)
+env = environ.Env()
 
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = env('DEBUG')
 
@@ -55,11 +53,14 @@ INSTALLED_APPS = [
                      'django.contrib.staticfiles',
                      'rest_framework',
                      'django_bleach',
-                     'widget_tweaks'
+                     'widget_tweaks',
+                     'cloudinary',
+                     'cloudinary_storage'
                  ] + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -139,11 +140,39 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     BASE_DIR / "node_modules" / "bootstrap" / "dist",
     BASE_DIR / "node_modules" / "quill",
 ]
+
+STORAGES = {
+    # ← this is what was missing
+    "default": {
+        # local filesystem in dev, Cloudinary in prod
+        "BACKEND": (
+            "django.core.files.storage.FileSystemStorage"
+            if DEBUG
+            else "cloudinary_storage.storage.MediaCloudinaryStorage"
+        ),
+        # only needed for FileSystemStorage:
+        "OPTIONS": {
+            "location": BASE_DIR / "media",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        # no OPTIONS needed here
+    },
+}
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': env('CLOUDINARY_API_KEY'),
+    'API_SECRET': env('CLOUDINARY_API_SECRET'),
+}
 
 MEDIA_URL = 'media/'
 
