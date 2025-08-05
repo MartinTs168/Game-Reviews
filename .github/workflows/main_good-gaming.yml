@@ -21,6 +21,7 @@ jobs:
       DEBUG: ${{ vars.DEBUG }}
       ALLOWED_HOSTS: ${{secrets.ALLOWED_HOSTS }}
       CSRF_TRUSTED_ORIGINS: ${{secrets.CSRF_TRUSTED_ORIGINS }}
+      DB_URL: ${{ secrets.DB_URL }}
       DB_NAME: ${{secrets.DB_NAME }}
       DB_USER: ${{secrets.DB_USER }}
       DB_PASSWORD: ${{secrets.DB_PASSWORD }}
@@ -78,6 +79,7 @@ jobs:
       DEBUG: ${{ vars.DEBUG }}
       ALLOWED_HOSTS: ${{secrets.ALLOWED_HOSTS }}
       CSRF_TRUSTED_ORIGINS: ${{secrets.CSRF_TRUSTED_ORIGINS }}
+      DB_URL: ${{ secrets.DB_URL }}
       DB_NAME: ${{secrets.DB_NAME }}
       DB_USER: ${{secrets.DB_USER }}
       DB_PASSWORD: ${{secrets.DB_PASSWORD }}
@@ -116,7 +118,8 @@ jobs:
         run: npm ci
 
       - name: Configure Azure DATABASE_URL
-        run: echo "DATABASE_URL=${{ secrets.AZURE_DATABASE_URL }}" >> $GITHUB_ENV
+        run: |
+          echo "DATABASE_URL=${{ secrets.DB_URL }}" >> $GITHUB_ENV
 
       - name: Run migrations and setup db users
         run: |
