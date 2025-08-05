@@ -30,7 +30,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
 
-DEBUG = env('DEBUG')
+DEBUG = True if env('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
