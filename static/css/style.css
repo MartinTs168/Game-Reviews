@@ -123,6 +123,13 @@ main {
     background-clip: padding-box;
 }
 
+.card-header {
+    background-color: rgba(61, 63, 63, 0.9);
+    border-radius: 1rem !important;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+}
+
 .card-body {
     background: linear-gradient(to bottom,
     rgba(57, 58, 58, 0.9) 0%,
@@ -130,4 +137,27 @@ main {
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
     box-shadow: var(--shadow);
+}
+
+.ql-toolbar .ql-stroke {
+    stroke: white !important;
+}
+
+.ql-toolbar .ql-fill {
+    fill: white !important;
+}
+
+.ql-toolbar .ql-picker-label {
+    color: white !important;
+}
+
+.ql-toolbar button.ql-active .ql-stroke,
+.ql-toolbar button.ql-active .ql-fill {
+    stroke: white !important;
+    fill: white !important;
+    opacity: 0.7;
+}
+
+.ql-snow .ql-picker-options {
+    background-color: rgba(61, 63, 63, 0.9) !important;
 }

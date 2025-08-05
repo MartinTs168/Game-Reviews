@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
         theme: 'snow',
         modules: {
             toolbar: [
+                [{'header': [3, false]}],
                 ['bold', 'italic', 'underline'],
-                [{list: 'ordered'}, {list: 'bullet'}],
-            ],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+            ]
         }
     });
 
@@ -16,5 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('formdata', (event) => {
         // Append Quill content before submitting
         event.formData.append('content', quill.getSemanticHTML());
+    });
+
+    window.addEventListener('resize', function () {
+        let toolbar = quill.getModule('toolbar');
+        if (toolbar && toolbar.container) {
+            toolbar.container.style.maxWidth = '100%';
+        }
     });
 });

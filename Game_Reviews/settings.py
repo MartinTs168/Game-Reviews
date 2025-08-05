@@ -162,7 +162,7 @@ DJANGO_ADMIN_PASSWORD = env('DJANGO_ADMIN_PASSWORD', default=None)
 DJANGO_DEFAULT_EMPLOYEE_PASSWORD = env('DJANGO_DEFAULT_EMPLOYEE_PASSWORD', default=None)
 
 # Settings for django-bleach
-BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'ul', 'ol', 'li', 'br', 'span', 'div']
+BLEACH_ALLOWED_TAGS = ['p', 'b', 'i', 'u', 'em', 'strong', 'ul', 'ol', 'li', 'br', 'span', 'div', 'h3']
 BLEACH_ALLOWED_ATTRIBUTES = {
     '*': ['class'],
 }

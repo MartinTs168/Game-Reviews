@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
         theme: 'snow',
         modules: {
             toolbar: [
+                [{'header': [3, false]}],
                 ['bold', 'italic', 'underline'],
-                [{list: 'ordered'}, {list: 'bullet'}],
-            ],
+                [{'list': 'ordered'}, {'list': 'bullet'}],
+            ]
         }
     });
 
