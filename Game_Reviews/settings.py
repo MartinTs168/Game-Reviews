@@ -34,7 +34,7 @@ DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split(',')
 
-CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS').split(',')
+# CSRF_TRUSTED_ORIGINS = env('CSRF_TRUSTED_ORIGINS').split(',')
 
 PROJECT_APPS = [
     'accounts.apps.AccountsConfig',
@@ -104,7 +104,7 @@ DATABASES = {
         'HOST': env('DB_HOST', default='localhost'),
         'PORT': env('DB_PORT', default='5432'),
         'OPTIONS': {
-            'sslmode': 'require',  # Required for Azure PostgreSQL
+            'sslmode': 'require' if not DEBUG else 'prefer',  # Required for Azure PostgreSQL
         },
     }
 }

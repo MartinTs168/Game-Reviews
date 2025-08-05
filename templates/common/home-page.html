@@ -13,13 +13,15 @@
         <a href="{% url 'game-details' top_game.pk %}">
             <div class="top-game flex-container flex-column
             d-flex justify-content-center align-items-center gap-3">
-                <div class="image-container">
-                    <img src="{{ top_game.image.url }}" alt="game cover image">
-                </div>
-                <div class="game-info text-center">
-                    <h3>{{ top_game.name }}</h3>
-                    <p>The game with the highest average rating of {{ top_game.avg_rating|floatformat:2 }}</p>
-                </div>
+                {% if top_game %}
+                    <div class="image-container">
+                        <img src="{{ top_game.image.url }}" alt="game cover image">
+                    </div>
+                    <div class="game-info text-center">
+                        <h3>{{ top_game.name }}</h3>
+                        <p>The game with the highest average rating of {{ top_game.avg_rating|floatformat:2 }}</p>
+                    </div>
+                {% endif %}
             </div>
         </a>
     </div>
