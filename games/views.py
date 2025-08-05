@@ -22,19 +22,19 @@ class GameAllView(ListView):
     ordering = ['name']
 
     def get_queryset(self):
-        queryset = super().get_queryset().prefetch_related('tags')
         tag_ids = self.request.GET.getlist('tags')
-        search_string = self.request.GET.get('search')
+        search_string = self.request.GET.get('search') or ''
+        queryset = super().get_queryset().prefetch_related('tags').filter(name__icontains=search_string)
         if tag_ids:
             queryset = (queryset.filter(
-                Q(tags__in=tag_ids) &
-                Q(name__icontains=search_string)
+                tags__in=tag_ids
             ).annotate(
                 num_matched=Count(
                     'tags', filter=Q(tags__in=tag_ids))
             ).filter(
-                num_matched=len(tag_ids))
-            )
+                name__icontains=search_string
+            ))
+
         return queryset.distinct()
 
     def get_context_data(
