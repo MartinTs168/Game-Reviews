@@ -56,6 +56,9 @@ jobs:
       - name: Collect static files
         run: uv run python manage.py collectstatic --no-input
 
+      - name: Export requirements.txt for Azure
+        run: uv export --format requirements-txt --output-file requirements.txt
+
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
