@@ -1,5 +1,6 @@
 from typing import Optional
 
+from cloudinary import CloudinaryResource
 from django.core.files.uploadedfile import UploadedFile
 from django.utils.deconstruct import deconstructible
 
@@ -26,6 +27,6 @@ class FileSizeValidator:
 
         self.__message = value
 
-    def __call__(self, value: UploadedFile) -> None:
-        if value.size > self.file_size_limit * 1024 * 1024:
+    def __call__(self, value: UploadedFile | CloudinaryResource) -> None:
+        if isinstance(value, UploadedFile) and value.size > self.file_size_limit * 1024 * 1024:
             raise ValueError(self.message)
